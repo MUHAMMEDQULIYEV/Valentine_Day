@@ -8,27 +8,45 @@
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&family=Pacifico&display=swap"
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800&family=Pacifico&family=Dancing+Script:wght@400;700&display=swap"
         rel="stylesheet">
 </head>
 
 <body>
+    <!-- Floating Hearts Background -->
+    <div id="floating-hearts-bg"></div>
+    
+    <!-- Particle Container -->
+    <div id="particles-container"></div>
+
     <!-- Loading Screen -->
     <div id="loading-screen">
         <div class="heart-loader">💖</div>
-        <p>Loading love...</p>
+        <p class="loading-text">Loading love...</p>
+        <div class="loading-bar">
+            <div class="loading-progress"></div>
+        </div>
     </div>
 
     <!-- Welcome Screen -->
     <div id="welcome-screen" class="screen">
-        <h1>Hey you! <span class="sparkle">✨</span></h1>
-        <p>I made something small for you...</p>
-        <button id="start-btn" class="btn-primary">Click to see something special 💌</button>
+        <div class="welcome-content">
+            <h1 class="fade-in-up">Hey you! <span class="sparkle">✨</span></h1>
+            <p class="subtitle fade-in-up delay-1">I made something special for you...</p>
+            <p class="hint fade-in-up delay-2">💕 Prepare your heart 💕</p>
+            <button id="start-btn" class="btn-primary glow-btn fade-in-up delay-3">
+                <span class="btn-text">Click to see something magical</span>
+                <span class="btn-icon">💌</span>
+            </button>
+        </div>
         <div class="audio-control">
-            <button id="music-toggle" class="btn-icon">🎵</button>
+            <button id="music-toggle" class="btn-icon" title="Toggle Music">
+                <span class="music-icon">🎵</span>
+            </button>
         </div>
     </div>
 
+    <!-- Audio Element (Placeholder for user's music) -->
     <audio id="bg-music" loop>
         <source src="assets/music.mp3" type="audio/mpeg">
         Your browser does not support the audio element.
@@ -38,20 +56,33 @@
     <div id="main-content" class="screen hidden">
         <canvas id="physics-canvas"></canvas>
         <div id="ui-layer">
-            <h2 class="floating-text">Will you be my Valentine? 🌹</h2>
+            <h2 class="floating-text pulse-glow">Will you be my Valentine? 🌹</h2>
             <div class="button-container">
-                <button id="yes-btn" class="btn-yes">Yes 😍</button>
-                <button id="no-btn" class="btn-no">No</button>
+                <button id="yes-btn" class="btn-yes bounce-in">Yes! 😍</button>
+                <button id="no-btn" class="btn-no bounce-in delay-1">No</button>
             </div>
+            <p class="hint-text">💭 Choose wisely...</p>
         </div>
     </div>
 
     <!-- Celebration Screen -->
     <div id="celebration-screen" class="screen hidden">
-        <h1>Yay! I knew it! 🥰</h1>
-        <p>Best. Valentine. Ever.</p>
-        <div class="gifs">
-            <!-- Placeholders for cute gifs if needed -->
+        <div class="celebration-content">
+            <h1 class="celebration-title">Yay! I knew it! 🥰</h1>
+            <p class="celebration-subtitle">Best. Decision. Ever.</p>
+            <div class="love-messages">
+                <p class="love-msg">💖 You make my heart smile</p>
+                <p class="love-msg">🌟 You're my favorite person</p>
+                <p class="love-msg">💕 Can't wait to spend time with you</p>
+            </div>
+            <div class="heart-explosion">
+                <span class="heart">💖</span>
+                <span class="heart">💕</span>
+                <span class="heart">💗</span>
+                <span class="heart">💓</span>
+                <span class="heart">💝</span>
+                <span class="heart">💞</span>
+            </div>
         </div>
     </div>
 

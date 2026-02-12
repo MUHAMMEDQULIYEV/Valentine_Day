@@ -301,7 +301,8 @@ class DOMPhysicsWorld {
             // Apply to styles
             el.style.left = p.x + 'px';
             el.style.top = p.y + 'px';
-            el.style.transform = `rotate(${p.rotation}deg)`;
+            const scale = (typeof p.scale !== 'undefined') ? p.scale : 1;
+            el.style.transform = `rotate(${p.rotation}deg) scale(${scale})`;
         });
 
         this.loopId = requestAnimationFrame(() => this.loop());

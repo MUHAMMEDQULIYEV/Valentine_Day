@@ -54,31 +54,45 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 100);
     });
 
-    // "No" Button Interaction (Run away)
-    // We need to override the physics position if it exists
-    const moveNoButton = (e) => {
-        e.preventDefault();
+    // "No" Button Interaction (Shrink)
+    let currentScale = 1;
+    const shrinkNoButton = (e) => {
         e.stopPropagation(); // Stop physics / other events
 
-        const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
-        const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
+        currentScale *= 0.8; // Shrink reduced to 0.8 per click to be less abrupt
 
-        // If physics is running, update the physics object
         if (noBtn.physics) {
-            noBtn.physics.x = x;
-            noBtn.physics.y = y;
-            noBtn.physics.vx = (Math.random() - 0.5) * 20; // Add chaotic velocity
-            noBtn.physics.vy = -10; // Jump up
+            const p = noBtn.physics;
+            const oldWidth = p.width;
+            const oldHeight = p.height;
+
+            p.width *= 0.8;
+            p.height *= 0.8;
+
+            // Compensate position to keep centered relative to previous center
+            // (Shift x/y by half the size difference)
+            p.x += (oldWidth - p.width) / 2;
+            p.y += (oldHeight - p.height) / 2;
+
+            p.scale = currentScale; // Use scale for CSS transform
+
+            // Apply a little "pop" upward velocity to make it feel responsive
+            p.vy -= 5;
         } else {
-            noBtn.style.position = 'absolute';
-            noBtn.style.left = `${x}px`;
-            noBtn.style.top = `${y}px`;
+            noBtn.style.transform = `scale(${currentScale})`;
+        }
+
+        // If it gets too small, make it disappear
+        if (currentScale < 0.2) {
+            noBtn.style.display = 'none';
+            if (noBtn.physics) {
+                // Move it away
+                noBtn.physics.y = 10000;
+            }
         }
     };
 
-    noBtn.addEventListener('mouseover', moveNoButton);
-    noBtn.addEventListener('touchstart', moveNoButton);
-    noBtn.addEventListener('click', moveNoButton); // Just in case they manage to click it
+    noBtn.addEventListener('click', shrinkNoButton);
 
     // "Yes" Button Interaction
     yesBtn.addEventListener('click', () => {
